@@ -1,0 +1,31 @@
+#import the turtle
+from turtle import *
+window = Screen()
+my_turtle = Turtle()
+
+#part 4 - circle
+
+my_turtle.speed(80)
+my_turtle.width(3)
+
+colormode(255)
+# circle color shading
+for i in range(90):
+     my_turtle.pencolor(0, 0, 0)
+     my_turtle.forward(1)
+     my_turtle.right(1)
+for i in range(90):
+     my_turtle.pencolor(104, 34, 139)
+     my_turtle.forward(1)
+     my_turtle.right(1)
+for i in range(90):
+    my_turtle.pencolor(154, 50, 205)
+    my_turtle.forward(1)
+    my_turtle.right(1)
+for i in range(90):
+    my_turtle.pencolor(178, 58, 238)
+    my_turtle.forward(1)
+    my_turtle.right(1)
+
+#stop the program after the click
+window.exitonclick()
