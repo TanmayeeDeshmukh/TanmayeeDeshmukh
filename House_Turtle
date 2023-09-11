@@ -1,0 +1,42 @@
+from turtle import *
+window = Screen()
+
+my_turtle = Turtle()
+my_turtle.speed(0)
+
+# part 3 - house
+#house square
+for count in range(5):
+    my_turtle.left(90)
+    my_turtle.forward(150)
+
+#roof triangle
+my_turtle.right(90)
+my_turtle.forward(50)
+my_turtle.left(130)
+my_turtle.forward(203)
+my_turtle.left(100)
+my_turtle.forward(205)
+my_turtle.left(130)
+my_turtle.forward(60)
+
+#roof window
+my_turtle.penup()
+my_turtle.goto(-55,230)
+for i in range(5):
+    my_turtle.right(90)
+    my_turtle.forward(50)
+    my_turtle.pendown()
+
+#door
+my_turtle.penup()
+my_turtle.goto(-1,1)
+for i in range(5):
+    my_turtle.right(90)
+    my_turtle.forward(95)
+    my_turtle.pendown()
+
+#stop the program after the click
+window.exitonclick()
+
+
