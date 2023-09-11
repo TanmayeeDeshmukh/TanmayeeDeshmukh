@@ -1,0 +1,28 @@
+from turtle import *
+window = Screen()
+
+# part 1 - triangle
+
+my_turtle = Turtle()
+
+# outer boarder of the triangle
+my_turtle.width(4)
+my_turtle.color("black")
+my_turtle.speed(1)
+
+# the length of the sides
+length_of_triangle = 200
+
+# fill the choice of the color in the triangle
+my_turtle.fillcolor("lightblue")
+my_turtle.begin_fill()
+
+# to draw a equilateral triangle
+for i in range(3):
+     my_turtle.left(120)
+     my_turtle.forward(length_of_triangle)
+
+my_turtle.end_fill()
+
+#stop the program after the click
+window.exitonclick()
