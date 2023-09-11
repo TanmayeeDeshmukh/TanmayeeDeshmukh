@@ -1,0 +1,22 @@
+#import the turtle program
+from turtle import *
+window = Screen()
+
+
+my_turtle = Turtle()
+
+# part 2 - spiral
+
+#definining the length,angle and the inccrement
+length = 20
+angle = 90
+increment = 5
+
+#making of the shape(square) and adding 5 to every next step
+for i in range(20):
+    my_turtle.forward(length)
+    my_turtle.right(angle)
+    length += increment
+
+#stop the program after the click
+window.exitonclick()
