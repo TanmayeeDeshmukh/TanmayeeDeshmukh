@@ -1,0 +1,14 @@
+#import turtle
+from turtle import *
+window = Screen()
+my_turtle = Turtle()
+
+my_turtle.speed(0)
+
+#building the design
+for i in range(18):
+    right(100)
+    forward(200)
+
+#stop the program after the click
+window.exitonclick()
