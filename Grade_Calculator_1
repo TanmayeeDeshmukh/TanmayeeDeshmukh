@@ -1,0 +1,21 @@
+print("What is your name?")
+my_name = input()
+print("Please enter your subject1 score")
+my_subject1 = input()
+print("Please enter your subject2 score")
+my_subject2 = input()
+print("Please enter your subject3 score")
+my_subject3 = input()
+print("Please enter your subject4 score")
+my_subject4 = input()
+print("Please enter your subject5 score")
+my_subject5 = input()
+
+
+average_grade = (int(my_subject1)*0.35 + int(my_subject2)*0.45 + int(my_subject3)* 0.10 + int(my_subject4)* 0.05 +int(my_subject5)*0.05)
+#average_grade = (int(my_subject1) + int(my_subject2) + int(my_subject3) + int(my_subject4) + int(my_subject5))/100
+#average_grade = (int(my_subject1) + int(my_subject2) + int(my_subject3) + int(my_subject4) + int(my_subject5))/5
+
+
+print(my_name,"your final score for CS 1400 is",average_grade)
+
