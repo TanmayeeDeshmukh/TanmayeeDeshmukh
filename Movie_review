@@ -1,0 +1,194 @@
+#    [... This is a A8 is project this file contains movie review  ...]
+#7.1 Read the File and Make Words Lowercase
+def make_lowercase_lines_from_file(filename):
+    # Initialize an empty list to store the lines
+    lowercase_lines = []
+    # Open the file and read its content
+    with open(filename, 'r') as file:
+        for line in file:
+            # Remove leading and trailing whitespaces and convert to lowercase
+            lowercase_line = line.strip().lower()
+            # Append the lowercase line to the list
+            lowercase_lines.append(lowercase_line)
+
+    return lowercase_lines
+
+#7.2 Compute First Dictionary - Word/Stars Total
+def make_word_total_value_dict_from_lines(lines):
+    word_value_dict = {}
+
+    for line in lines:
+        # Split the line into words
+        parts = line.split()
+        # Get the starting number
+        starting_number = int(parts[0])
+        # Iterate through the remaining words
+        words = parts[1:]
+
+        for word in words:
+            total_value = starting_number
+            # Check if the word is already in the dictionary
+            if word in word_value_dict:
+                word_value_dict[word] += total_value
+            else:
+                word_value_dict[word] = total_value
+
+    return word_value_dict
+
+#7.3 Compute Second Dictionary - Word Frequency
+def make_word_total_count_dict_from_lines(lines):
+    word_count_dict = {}
+
+    for line in lines:
+        # Split the line into words
+        parts = line.split()
+        # Exclude the starting number from the word list
+        starting_number = int(parts[0])
+        words = parts[1:]
+        # Iterate through the remaining words
+        for word in words:
+            # Check if the word is already in the dictionary
+            if word in word_count_dict:
+                word_count_dict[word] += 1
+            else:
+                word_count_dict[word] = 1
+
+    return word_count_dict
+
+#7.4 Compute Third (and Final) Dictionary - Word Value
+def make_word_avg_value_from_total_and_count(total_value_dict, total_count_dict):
+    avg_value_dict = {}
+
+    for word in total_value_dict.keys():
+        total_value = total_value_dict[word]
+        total_count = total_count_dict[word]
+
+        if total_count > 0:
+            # Calculate the average value
+            average_value = total_value / total_count
+            # Check if the average is within the specified range
+            if average_value <= 1.75 or average_value >= 2.25:
+                # Add word and average value to the new dictionary
+                avg_value_dict[word] = average_value
+
+    return avg_value_dict
+
+#7.5 Predict the Value of a Review
+def predict_review(review_string, average_value_dict):
+    total_value = 0
+    total_count = 0
+    # Split the review string into words
+    words = review_string.split()
+
+    for word in words:
+        if word in average_value_dict:
+            total_value += average_value_dict[word]
+            total_count += 1
+
+    if total_count == 0:
+        return -1
+
+    predicted_rating = total_value / total_count
+    return predicted_rating
+
+#7.6 Provided Functions
+""" already provided"""
+
+"""
+   Given a list of movie reviews and a dictionary of words and their avg value, compare
+   the predicted rating with the actual rating.
+   :param lines: a list of movie reviews. Each review starts with a 0 to 4 movie rating.
+   :param avg_value_dict: A dict of words and their average value in a movie review rating
+   :return: None. This prints out some predicted and actual score for movie reviews.
+   """
+
+def compare_prediction_with_actual(lines, avg_value_dict):
+    for line in lines:
+        words = line.split()
+        actual_score = int(words[0])
+        predicted_score = predict_review(" ".join(words[1:]), avg_value_dict)
+        print("predicted:", predicted_score, "actual:", actual_score)
+
+def main():
+    """7.1 Read the File and Make Words Lowercase"""
+    # read the reviews into a list
+    lines = make_lowercase_lines_from_file("MovieReviews.txt")
+    print(lines)   # examine the dict to see if it looks correct
+
+    assert make_lowercase_lines_from_file("SampleReviews.txt") == ["4 a excellent movie", "0 a bad movie" , "3 pretty decent movie"], "error,this result of turn lowercase is wrong\n"
+
+    """7.2 Compute First Dictionary - Word/Stars Total"""
+    # Make a dict with words from reviews and their summed up values from the reviews they are in
+    total_value_dict = make_word_total_value_dict_from_lines(lines)
+    print(total_value_dict)   # examine the dict to see if it looks correct
+    test_list = ["1 bad","4 good","2 okay"]
+    assert make_word_total_value_dict_from_lines( test_list) == {"bad":1, "good":4, "okay":2}, "error,this result of make total value is wrong\n"
+
+    test_empty = []
+    assert make_word_total_value_dict_from_lines(test_empty) == {}, "error,this result of make total value is wrong\n"
+
+    # input_list = ["4 good movie", "2 not so good", "1 bad experience"]
+    # assert make_word_total_value_dict_from_lines(input_list) == {"good": 6, "not": 2, "so": 2, "bad": 1, "experience": 1}, "error,this result of make total value is wrong\n"
+
+    # new_list = [["3 interesting plot", "4 interesting characters", "2 plot twists"]]
+    # assert make_word_total_value_dict_from_lines(new_list) == {"interesting": 7, "plot": 5, "characters": 4, "twists": 2}, "error,this result of make total value is wrong\n"
+
+    """7.3 Compute Second Dictionary - Word Frequency"""
+    # Count up how often a word appears in all the reviews
+    total_count_dict = make_word_total_count_dict_from_lines(lines)
+    print(total_count_dict)   # examine the dict to see if it looks correct
+
+    # test_list2 = ["3 good movie", "1 not so good", "4 excellent movie"]
+    # assert make_word_total_count_dict_from_lines(test_list2) == {"good": 2, "movie": 3, "not": 1, "so": 1, "excellent": 1}, "error,this result of make word total count dict from lines is wrong\n"
+
+    input_test = ["2 interesting plot", "3 interesting characters", "1 plot twists"]
+    assert make_word_total_count_dict_from_lines(input_test) == {"interesting": 2, "plot": 2, "characters": 1, "twists": 1}, "error,this result of make word total count dict from lines is wrong\n"
+
+    test_empty = []
+    assert make_word_total_count_dict_from_lines(test_empty) == {}, "error,this result of make word total count dict from lines is wrong\n"
+
+    """7.4 Compute Third (and Final) Dictionary - Word Value"""
+    # Get the average value per word from the total value and their count
+    avg_value_dict = make_word_avg_value_from_total_and_count(total_value_dict, total_count_dict)
+    print(avg_value_dict)   # examine the dict to see if it looks correct
+
+    # test_list_input = {"good": 6, "not": 2, "so": 2, "bad": 1, "experience": 1},{"good": 2, "not": 1, "so": 1, "bad": 1, "experience": 1}
+    # assert make_word_avg_value_from_total_and_count(test_list_input) == {"good": 3.0, "not": 2.0, "so": 2.0, "bad": 1.0, "experience": 1.0}, "error,this result of make avg value from total and count is wrong\n"
+
+    # input_list_test = {"interesting": 7, "plot": 5, "characters": 4, "twists": 2},{"interesting": 2, "plot": 2, "characters": 1, "twists": 1}
+    # assert make_word_avg_value_from_total_and_count(input_list_test) == {"interesting": 3.5, "plot": 2.5, "characters": 4.0, "twists": 2.0}, "error,this result of make avg value from total and count is wrong\n"
+
+    test_list3 = {},{}
+    assert make_word_avg_value_from_total_and_count(test_list3) == {}, "error,this result of make avg value from total and count is wrong\n"
+
+    """7.5 Predict the Value of a Review"""
+    # Compare actual and predicted movie ratings for a small number of reviews
+    if len(lines) < 110:
+        compare_prediction_with_actual(lines, avg_value_dict)   # use all for small review files
+    else:
+        compare_prediction_with_actual(lines[100:110], avg_value_dict)
+
+    # Situation: Predicting a review with positive and negative words
+    review_string = ("This movie is really good and enjoyable")
+    average_value_dict = {"good": 3.0, "enjoyable": 4.5}
+    assert compare_prediction_with_actual(review_string,average_value_dict) == 3.75,"error,this result of predict value is wrong\n"
+
+    # Situation: Predicting a review with repeated words
+    review_string = ("The plot is interesting, characters are interesting too")
+    average_value_dict = {"interesting": 3.5, "plot": 2.5, "characters": 4.0}
+    assert compare_prediction_with_actual(review_string, average_value_dict) == 3.0,"error,this result of predict value is wrong\n"
+
+    # Situation: Predicting a review with words not in the average_value_dict
+    review_string = ("This movie is terrible and boring")
+    average_value_dict = {"good": 3.0, "enjoyable": 4.5}
+    assert compare_prediction_with_actual(review_string, average_value_dict) == -1,"error,this result of predict value is wrong\n"
+
+    """7.6 Provided Functions"""
+    # Ask the user for a movie review and predict a rating. It should be without punctuation.
+    personal_review = input("Please enter a review with no punctuation: \n")
+    personal_review = personal_review.lower()
+    prediction = predict_review(personal_review, avg_value_dict)
+    print("The predicted review score is", prediction)
+
+if __name__ == '__main__':
+    main()
