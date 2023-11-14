@@ -1,0 +1,139 @@
+#
+# The multiply function computes the product of two factors
+#
+# It does this by: ????
+#
+# inputs ????
+# outputs ???
+#
+# Given code
+def multiply(factor1, factor2):
+    product = 0
+    for loop_counter in range(factor2):
+        product += factor1
+    return product
+
+# 4.1 Choose the Smaller of Two numbers
+def choose_smaller(num1,num2):
+    if num1 <= num2:
+        return num1
+    else:
+        return num2
+
+# 4.2 Describe a Number
+def describe_number(num):
+    if num == 0:
+        return "zero"
+    elif num > 0:
+        return "positive"
+    else:
+        return "negative"
+
+#4.3 Add “a” or “an” Before a Word
+def add_a_or_an_to_word(word):
+    if word[0].lower() in ["a","e","i","o","u"]:
+        new_word = "an" + " " + word
+        return new_word
+    else:
+        new_word = "a" + " " + word
+        return new_word
+
+# 4.4 Add “a” or “an” or “any” Before a Word
+def add_a_or_an_or_any_to_word(word):
+    if word[-1].lower() == "s":
+        return "any" + word
+    elif word[0] in "aeiou":
+        return "an" + " " + word
+    else:
+        return "a" + " " + word
+
+# 4.5 Simple Pirate Language Translator
+def pirate_translate(sentence):
+    sentence_list = sentence.split()
+    pirate_sentence = []
+    for item in sentence_list:
+        if item == "my":
+            pirate_sentence.append("me")
+        elif item == "you":
+            pirate_sentence.append("ye")
+        elif item == "is":
+            pirate_sentence.append("be")
+        elif item == "are":
+            pirate_sentence.append("be")
+        elif item == "hello":
+            pirate_sentence.append("ahoy")
+        elif item == "friend":
+            pirate_sentence.append("matey")
+        else:
+            pirate_sentence.append(item)
+    return " ".join(pirate_sentence)
+
+
+# Main executes and tests all the functions and reports on their results
+def main():
+    print("Testing the multiply function")
+
+    print("Testing multiply(2,3). Expecting a result of 6 and computed a result of", multiply(2,3))
+    assert multiply(2,3) == 6, "The result of the multiplication was wrong!"
+    print("Testing multiply(5,6). Expecting a result of 30 and computed a result of", multiply(5,6))
+    assert multiply(5, 6) == 30, "The result of the multiplication was wrong!"
+
+# 4.1 Choose the Smaller of Two numbers
+    print("Testing the choose smaller number function")
+
+    print("Testing choose_smaller (2,4). Expecting a result of 2 and computed a result of", choose_smaller(2, 4))
+    assert choose_smaller(2, 4) == 2, " The result of the minimum value out of the two was wrong"
+    print("Testing choose_smaller (-3,-9). Expecting a result of -9 and computed a result of", choose_smaller(-3, -9))
+    assert choose_smaller(-3, -9) == -9, " The result of the minimum value out of the two was wrong"
+
+# 4.2 Describe a Number
+    print("Testing the choose describe a number function")
+
+    print("Testing the describe number(3) Expecting a result of positive and computed a result of", describe_number(3))
+    assert describe_number(3) == "positive","..the description of the number was wrong "
+    print("Testing the describe number(-3) Expecting a result of negative and computed a result of", describe_number(-3))
+    assert describe_number(-3) == "negative", "..the description of the number was wrong "
+    print("Testing the describe number(0) Expecting a result of zero and computed a result of", describe_number(0))
+    assert describe_number(0) == "zero", "..the description of the number was wrong "
+
+# 4.3 Add “a” or “an” Before a Word
+    print("Testing the Add “a” or “an” Before a Word function")
+
+    print("Testing Add “a” or “an” Before a Word(ant),Expecting a result of an ant and computed a result of", add_a_or_an_to_word("ant"))
+    assert add_a_or_an_to_word("ant") == "a ant", "..the description of the word was wrong"
+    print("Testing Add “a” or “an” Before a Word(cat),Expecting a result of a cat and computed a result of", add_a_or_an_to_word("cat"))
+    assert add_a_or_an_to_word("cat") == "a cat", "..the description of the word was wrong"
+
+# 4.4 Add “a” or “an” or “any” Before a Word
+    print("Testing the Add “a” or “an” or “any” Before a Word function")
+
+    print("Testing Add “a” or “an” Before a Word(cat),Expecting a result of a ant and computed a result of", add_a_or_an_or_any_to_word("cat"))
+    assert add_a_or_an_or_any_to_word("cat") == "a cat", "..the description of the word was wrong"
+    print("Testing Add “a” or “an” Before a Word(apple),Expecting a result of an apple and computed a result of",add_a_or_an_or_any_to_word("apple"))
+    assert add_a_or_an_or_any_to_word("apple") == "an apple", "..the description of the word was wrong"
+    print("Testing Add “a” or “an” Before a Word(book),Expecting a result of an ant and computed a result of",add_a_or_an_or_any_to_word("book"))
+    assert add_a_or_an_or_any_to_word("ant") == "an book", "..the description of the word was wrong"
+
+
+#4.5 Simple Pirate Language Translator
+    print("Testing the Simple Pirate Language Translator function")
+
+    print("Testing Simple Pirate Language Translator(my),Expecting a result of me and computed a result of",pirate_translate("my"))
+    assert pirate_translate("my") == "me", "..the description of the word was wrong"
+    print("Testing Simple Pirate Language Translator(you),Expecting a result of ye and computed a result of",pirate_translate("you"))
+    assert pirate_translate("you") == "ye", "..the description of the word was wrong"
+    print("Testing Simple Pirate Language Translator(is),Expecting a result of be and computed a result of",pirate_translate("is"))
+    assert pirate_translate("is") == "be", "..the description of the word was wrong"
+    print("Testing Simple Pirate Language Translator(are),Expecting a result of me and computed a result of",pirate_translate("are"))
+    assert pirate_translate("are") == "be", "..the description of the word was wrong"
+    print("Testing Simple Pirate Language Translator(hello),Expecting a result of ye and computed a result of",pirate_translate("hello"))
+    assert pirate_translate("hello") == "ahoy", "..the description of the word was wrong"
+    print("Testing Simple Pirate Language Translator(friend),Expecting a result of be and computed a result of",pirate_translate( "matey"))
+    assert pirate_translate("friend") == "matey", "..the description of the word was wrong"
+
+
+if __name__=="__main__":
+    main()
+
+
+
