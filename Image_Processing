@@ -1,0 +1,212 @@
+def convert_to_grayscale(image):
+    # This function convert the image in grey color
+    #
+    # Inputs:
+    #     o) image  - png- green-screen-cat
+    # Output:
+    #     switched image is returns - the picture in grey color scale
+    switched_image = image.clone()  # copy the image
+
+    # go across the image (columns) using a for loop, and then move down to the next row and repeat
+    for row in range(0, image.getHeight()):
+        for col in range(0, image.getWidth()):
+            # Get the red, green, and blue intensity values. Important: get all the values first!
+            red_color = image.getPixelRed(col, row)  # get the pixel color
+            green_color = image.getPixelGreen(col, row)  # get the pixel color
+            blue_color = image.getPixelBlue(col, row)  # get the pixel color
+
+            color_avg = ((red_color + blue_color + green_color) // 3)
+            # Set the pixel in the new image to have the swapped around intensity values
+            switched_image.setPixelRed(col, row, color_avg)  # Set the red part of the pixel to the new color
+            switched_image.setPixelGreen(col, row, color_avg)  # Set the green part of the pixel to the new color
+            switched_image.setPixelBlue(col, row, color_avg)  # Set the blue part of the pixel to the new color
+    return switched_image
+
+
+def convert_to_photonegative(image):
+    # This function turns the image in photonegative effect.
+    #
+    # Inputs:
+    #     o) image  - png- green-screen-cat
+    # Output:
+    #     switched image is returns - the picture in grey color scale
+    switched_image = image.clone()  # copy the image
+
+    # go across the image (columns) using a for loop, and then move down to the next row and repeat
+    for row in range(0, image.getHeight()):
+        for col in range(0, image.getWidth()):
+            # Get the red, green, and blue intensity values. Important: get all the values first!
+            red_color = image.getPixelRed(col, row)  # get the pixel color
+            green_color = image.getPixelGreen(col, row)  # get the pixel color
+            blue_color = image.getPixelBlue(col, row)  # get the pixel color
+
+            neg_red = 255 - red_color
+            neg_green = 255 - green_color
+            neg_blue = 255 - blue_color
+
+            # Set the pixel in the new image to have the swapped around intensity values
+            switched_image.setPixelRed(col, row, neg_red)  # Set the red part of the pixel to the new color
+            switched_image.setPixelGreen(col, row, neg_green)  # Set the green part of the pixel to the new color
+            switched_image.setPixelBlue(col, row, neg_blue)  # Set the blue part of the pixel to the new color
+    return switched_image
+
+
+def brighten(image, scale):
+    # This function brightens the image.
+    #
+    # Inputs:
+    #     o) image  - png- green-screen-cat
+    # Output:
+    #     scale - int - brighten or darken the image
+    switched_image = image.clone()  # copy the image
+
+    # go across the image (columns) using a for loop, and then move down to the next row and repeat
+    for row in range(0, image.getHeight()):
+        for col in range(0, image.getWidth()):
+            # Get the red, green, and blue intensity values. Important: get all the values first!
+            red_color = image.getPixelRed(col, row)  # get the pixel color
+            green_color = image.getPixelGreen(col, row)  # get the pixel color
+            blue_color = image.getPixelBlue(col, row)  # get the pixel color
+
+            light_up_red = scale * red_color
+            light_up_green = scale * green_color
+            light_up_blue = scale * blue_color
+
+            # Set the pixel in the new image to have the swapped around intensity values
+            switched_image.setPixelRed(col, row, light_up_red)  # Set the red part of the pixel to the new color
+            switched_image.setPixelGreen(col, row, light_up_green)  # Set the green part of the pixel to the new color
+            switched_image.setPixelBlue(col, row, light_up_blue)  # Set the blue part of the pixel to the new color
+    return switched_image
+
+
+def merge_green_screen_with_image(green_image, background_image):
+    # This function merges two images into one image which have bothe the images.
+    #
+    # Inputs:
+    #     o) green_image - png -green image
+    #     o) background_image - png - background image
+    # Output:
+    #     data type - description  (or None)
+    switched_image = green_image.clone()  # copy the image
+
+    # go across the image (columns) using a for loop, and then move down to the next row and repeat
+    for row in range(0, green_image.getHeight()):
+        for col in range(0, green_image.getWidth()):
+            # Get the red, green, and blue intensity values. Important: get all the values first!
+            red_color = green_image.getPixelRed(col, row)  # get the pixel color of green image
+            green_color = green_image.getPixelGreen(col, row)  # get the pixel color of green image
+            blue_color = green_image.getPixelBlue(col, row)  # get the pixel color of green image
+
+            red_color_bg = background_image.getPixelRed(col, row)  # get the pixel color of background image
+            green_color_bg = background_image.getPixelGreen(col, row)  # get the pixel color of background image
+            blue_color_bg = background_image.getPixelBlue(col, row)  # get the pixel color of background image
+
+            # Set the pixel in the new image to have the swapped around intensity values
+            if red_color < 100 and green_color > 150 and blue_color < 100:
+                switched_image.setPixelRed(col, row, red_color_bg)  # Set the red part of the pixel to the background color
+                switched_image.setPixelGreen(col, row, green_color_bg)  # Set the green part of the pixel to the background color
+                switched_image.setPixelBlue(col, row,  blue_color_bg)  # Set the blue part of the pixel to the background color
+    return switched_image
+
+def dot_art(image, win, count, radius):
+    # This function does [ high level description of what the function does ].
+    #
+    # Inputs:
+    #     o) image - png - green-screen-cat
+    #     o) win - window - use the window
+    #     o) count - int - number of circles
+    #     o) radius - int - radius of circle
+    # Output:
+    #     image - image made with pixel dots
+    switched_image = image.clone()  # copy the image
+
+    # go across the image (columns) using a for loop, and then move down to the next row and repeat
+    for row in range(0, image.getHeight()):
+        for col in range(0, image.getWidth()):
+
+            # Get the red, green, and blue intensity values. Important: get all the values first!
+            red_color = image.getPixelRed(col, row)  # get the pixel color
+            green_color = image.getPixelGreen(col, row)  # get the pixel color
+            blue_color = image.getPixelBlue(col, row)  # get the pixel color
+
+            # Set the pixel in the new image to have the swapped around intensity values
+
+            switched_image.setPixelRed(col, row, red_color)  # Set the red part of the pixel to the new color
+            switched_image.setPixelGreen(col, row, green_color)  # Set the green part of the pixel to the new color
+            switched_image.setPixelBlue(col, row, blue_color)  # Set the blue part of the pixel to the new color
+
+    for pixel in range(count):
+        # generate random x
+        # generate randon y
+
+        x_postiion = random.randint(0,image.getWidth() - 1)
+        y_postiion = random.randint(0, image.getHeight() - 1)
+
+    # Get the red, green, and blue intensity values. Important: get all the values first!
+
+        red_color = image.getPixelRed(x_postiion, y_postiion)  # get the pixel color
+        green_color = image.getPixelGreen(x_postiion, y_postiion)  # get the pixel color
+        blue_color = image.getPixelBlue(x_postiion, y_postiion)  # get the pixel color
+
+        # draw a circle at position random x and y on win, with color values from above
+        circle = Circle(Point(x_postiion, y_postiion), radius)  # 5 makes a 5 pixel radius circle and x,y is the center
+        circle.setFill(red_color, green_color, blue_color)
+        circle.setWidth(0)  # This gets rid of the circle border
+        circle.draw(win)
+
+    return switched_image
+
+
+def main():
+    # Build a big window to put the image in
+    win = GraphWin('Image Art', 1000, 1000, autoflush=False)
+
+    # This is here to help see if the image is centered.
+    win.setBackground('gray')
+
+    # Load the sample images (which will be manipulated below)
+    arches_image = load_image("def.png", win)
+    #arches_image = load_image("green-screen-cat.png", win)
+    green_image = load_image("superman_green_screen.png", win)
+    #arches_photo_image =load_image("arches.png", win)
+
+    arches_image.draw(win)
+    win.getMouse()
+
+    # Make a new greyscale image
+
+    image_with_colors_swapped = convert_to_grayscale(arches_image)
+    image_with_colors_swapped.draw(win)
+    win.getMouse()
+
+    # Make a new photonegative image
+
+    image_with_colors_swapped = convert_to_photonegative(arches_image)
+    image_with_colors_swapped.draw(win)
+    win.getMouse()
+
+    # Make a new brighter image
+
+    image_with_colors_swapped = brighten(arches_image, 2)
+    image_with_colors_swapped.draw(win)
+    win.getMouse()
+
+    # Make a merge image
+    # Make a new image with background and green images
+    merged_green_image = merge_green_screen_with_image(green_image, arches_image)
+    merged_green_image.draw(win)
+    win.getMouse()
+
+    # Dotify the image
+
+    switch_image_colors = dot_art(arches_image,win,50000,5)
+    switch_image_colors.draw(win)
+    win.getMouse()
+
+    # close the window when the program is over
+    win.close()
+
+
+# Execute main when this file is run.
+if __name__ == "__main__":
+    main()
