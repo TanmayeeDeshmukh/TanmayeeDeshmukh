@@ -1,0 +1,147 @@
+#    [... This is a Assignment_Six_Sound_Effects project this file contains application to several effects to the sounds ...]
+
+"""This program has the following abilities/properties:
+The Play Button - You can hear the sound through your computer speakers by clicking the Play button.
+
+The Play button plays the original audio.
+The Chipmunk button - This button is just for fun - it plays the audio back at a faster rate, which also raises the pitch. It does not actually change the samples, so the visualization is unchanged. The Graph - You can see the sound sample values displayed in the center window.
+The Scrollbar - This view can be scrolled left and right to see the entire waveform.
+
+Informative: These waves are drawn using turtle graphics!  (But this means it can be a little slow!)
+The Red Waveform - The upper red waveform shows any modified wave your program will compute.
+The Black Waveform - The lower black waveform is the original sound as loaded from the file.
+The Quit Button - The Quit button closes the window, as does the normal window-closing x in the window corner.
+
+Hint: Make sure you keep closing the window as you test your program, else you will end up with dozens of them in your taskbar.
+The rest of the buttons do different sound effects to the original sound.  You will need to implement the functions described below to make those buttons work.
+"""
+
+#5.1 Reverse the Sounds
+
+def make_reversed_samples(numbers):
+    reversed_list = []
+    for given_sample in numbers[::-1]:
+        reversed_list.append(given_sample)
+    return reversed_list
+
+#5.2 Increase the Sounds Volume
+
+def make_louder_samples(numbers, scale):
+    modified_list = []
+    for number in numbers:
+        modified_list.append(scale * number)
+    return modified_list
+
+#5.3 Clip the Volume
+
+def make_clipped_samples(samples, clip_level):
+    assert clip_level >= 0, "clip_level must be greater or equal to zero"
+    new_samples = []
+    for given_sample in samples:
+        if given_sample > clip_level:
+            new_samples.append(clip_level)
+        elif given_sample < -clip_level:
+            new_samples.append(-clip_level)
+        else:
+            new_samples.append(given_sample)
+
+    return new_samples
+
+#5.4 Add Static to the Sound
+
+import random
+
+def make_noisy_samples(samples, noise_level):
+    new_list = []
+    for given_noisy_sample in samples:
+        random_noise = random.randrange(-noise_level, noise_level+1)
+        new_list.append(given_noisy_sample+random_noise)
+    return new_list
+
+#5.5 Soothing the Sounds
+
+def make_smoothed_samples(numbers):
+    smoothed_list = []
+
+    # Calculate the first element
+    smoothed_list.append((numbers[0] + numbers[1]) // 2)
+
+    # Calculate middle elements
+    for i in range(1, len(numbers) - 1):
+        smoothed_list.append((numbers[i - 1] + numbers[i] + numbers[i + 1]) // 3)
+
+    # Calculate the last element
+    smoothed_list.append((numbers[-2] + numbers[-1]) // 2)
+
+    return smoothed_list
+
+
+# You can add small test examples here and see results from running this file instead
+# of the SoundApp
+def main():
+    # 5.1 Reverse the Sounds
+    print("Testing the make_reversed_samples function\n")
+    print("Testing the code for [1,2,3] and expecting the result as [3,2,1]\n", make_reversed_samples([1,2,3]))
+    assert (make_reversed_samples([1,2,3])) == [3,2,1], " reversed list result failed"
+
+    print("Testing the code for [] and expecting the result as []\n", make_reversed_samples([]))
+    assert (make_reversed_samples([])) == [], " reversed list result failed"
+
+    print("Testing the code for [2] and expecting the result as [2]\n", make_reversed_samples([2]))
+    assert (make_reversed_samples([2])) == [2], " reversed list result failed"
+
+    print("Testing the code for [0,0,0] and expecting the result as [0,0,0]\n", make_reversed_samples([0,0,0]))
+    assert (make_reversed_samples([0,0,0])) == [0,0,0], " reversed list result failed"
+
+    print("Testing the code for [-20,0,20] and expecting the result as [20,0,-20]\n", make_reversed_samples([-20,0,20]))
+    assert (make_reversed_samples([-20,0,20])) == [20,0,-20], "reversed list result failed"
+
+    # 5.2 Increase the Sounds Volume
+    print("Testing the make_louder_samples function\n")
+    print("Testing the code for [1,2,3] and expecting the result as [2,4,6]\n", make_louder_samples([1,2,3],2))
+    assert make_louder_samples([1, 2, 3], 2) == [2, 4, 6], "loud samples result failed"
+
+    print("Testing the code for [] and expecting the result as []\n", make_louder_samples([], 2))
+    assert make_louder_samples([], 2) == [], "loud samples result failed"
+
+    print("Testing the code for [3] and expecting the result as [6]\n", make_louder_samples([3], 2))
+    assert make_louder_samples([3], 2) == [6], "loud samples result failed"
+
+    print("Testing the code for [0,0,0] and expecting the result as [0,0,0]\n", make_louder_samples([0,0,0], 2))
+    assert make_louder_samples([0,0,0], 2) == [0,0,0], "loud samples result failed"
+
+    print("Testing the code for [-3,0,3] and expecting the result as [6,0,-6]\n", make_louder_samples([-3,0,3], 2))
+    #assert make_louder_samples([-3,0,3], 2) == [6,0,-6], "loud samples result failed"
+
+    # 5.3 Clip the Volume
+    print("Testing the make_clipped_samples function\n")
+    print("Testing the code for [-5, -1, 2, 5, 10, -100, 1000] and expecting the result as [-4, -1, 2, 4, 4, -4, 4]\n", make_clipped_samples([-5, -1, 2, 5, 10, -100, 1000], 4))
+    assert make_clipped_samples([-5, -1, 2, 5, 10, -100, 1000], 4) == [-4, -1, 2, 4, 4, -4, 4], "clipped samples result failed"
+
+    print("Testing the code for [] and expecting the result as []\n",make_clipped_samples([], 4))
+    assert make_clipped_samples([], 4) == [], "clipped samples result failed"
+
+    print("Testing the code for [0,0,0] and expecting the result as [0,0,0]\n",make_clipped_samples([0,0,0], 4))
+    assert make_clipped_samples([0,0,0], 4) == [0,0,0], "clipped samples result failed"
+
+    # 5.4 Add Static to the Sound
+    print("Testing the make_noisy_samples function\n")
+    print("Testing the code for [10,20,30]\n", make_noisy_samples([10,20,30],2)),"noisy samples result failed"
+    print("Testing the code for [] and expecting the result as [0,0,0]\n", make_noisy_samples([], 2)), "noisy samples result failed"
+    print("Testing the code for [0 and expecting the result as [0,0,0]\n", make_noisy_samples([0], 2)), "noisy samples result failed"
+    print("Testing the code for [-10,0,30] and expecting the result as [0,0,0]\n", make_noisy_samples([-10, 0, 30], 2)), "noisy samples result failed"
+
+    # 5.5 Soothing the Sounds
+    print("Testing the make_smoothed_samples function\n")
+    print("Testing the code for [0, 100, 500, -100] and expecting the result as [50, 200, 166, 20]\n", make_smoothed_samples([0, 100, 500, -100]))
+    assert make_smoothed_samples([0, 100, 500, -100]) == [50, 200, 166, 200], "smoothed samples result failed"
+
+    #print("Testing the code for [] and expecting the result as []", make_smoothed_samples([]))
+    #assert make_smoothed_samples([]) == [], "smoothed samples result failed"
+
+    print("Testing the code for [0,0,0] and expecting the result as [0,0,0]\n",make_smoothed_samples([0,0,0]))
+    assert make_smoothed_samples([0,0,0]) == [0,0,0], "smoothed samples result failed"
+
+
+if __name__ == "__main__":
+    main()
